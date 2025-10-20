@@ -1,0 +1,13 @@
+<h1>Welcome to the Product Page</h1>
+
+<label>
+  List of Products:
+</label>
+
+ <!-- Loop to display the products using dynamic template library EJS -->
+<ul> 
+  <% products.forEach(function(product) { %>
+    <li><%= product.name %> - $<%= product.price %></li>
+  <% }); %>
+</ul>
+
