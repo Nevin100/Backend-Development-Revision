@@ -108,3 +108,23 @@ export const UpdateUser = async(req,res) => {
         console.log(error);
     }
 }
+
+// Delete user by ID:
+export const deleteUser = async(req,res) => {
+    const { id } = req.params; 
+    try {
+        // Check if ID is provided
+        if(!id){
+            return res.status(400).json({message: "User ID is required", error: true});
+        }
+        
+        // Delete user by ID
+        await User.findByIdAndDelete(id);
+
+        res.json({message: "User deleted successfully", error: false});
+
+    } catch (error) {
+        res.status(500).json(({message:"Internal Server Issue", error : true}))
+        console.log(error);
+    }
+}
