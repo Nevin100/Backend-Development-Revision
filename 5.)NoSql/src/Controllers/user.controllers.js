@@ -7,7 +7,7 @@ import User from "../Model/user.schema.js";
 
   // 2.) Mongoose Methods:
   // find() : returns an array of documents that match the query
-  // findOne() : returns the first single document that matches the query 
+  // findOne() : returns the first single document that matches the query ({name : "John"}) <-- query
   // findById() : returns a single document based on its unique _id field
   // exists() : returns a boolean indicating whether a document matching the query exists
   // save() : saves the current state of a document to the database 
@@ -17,6 +17,10 @@ import User from "../Model/user.schema.js";
   // deleteMany() : deletes all documents that match the query
   // updateOne() : updates the first document that matches the query with new data
   // updateMany() : updates all documents that match the query with new data
+  // limit() : limits the number of documents returned in a query result
+  // skip() : skips a specified number of documents in a query result
+  // select() : specifies which fields to include or exclude in the query result
+  // sort() : sorts the query result based on specified fields 
   
   // 3.) HTTP Status Codes:
   // 200 OK : The request was successful, and the server returned the requested data.
@@ -60,7 +64,7 @@ export const createUser = async (req,res) =>{
 export const getUsers = async(req,res) => {
     try {
         // Fetch all users from database
-        const users = await User.find();
+        const users = await User.find().select("-_id"); // Exclude _id field
 
         // Check if users exist
         if(users.length === 0){
