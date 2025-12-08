@@ -1,12 +1,33 @@
 import User from "../Model/user.schema.js";
 
-// Create User:
+  // 1.) Reading Data:
+  // req.params : to read data from URL parameters
+  // req.query : to read data from query strings
+  // req.body : to read data from the request body (usually for POST/PUT requests)
 
+  // 2.) Mongoose Methods:
   // find() : returns an array of documents that match the query
   // findOne() : returns the first single document that matches the query 
   // findById() : returns a single document based on its unique _id field
   // exists() : returns a boolean indicating whether a document matching the query exists
+  // save() : saves the current state of a document to the database 
+  // findByIdAndUpdate() : finds a document by its _id and updates it with new data
+  // findByIdAndDelete() : finds a document by its _id and deletes it from the database
+  // deleteOne() : deletes the first document that matches the query
+  // deleteMany() : deletes all documents that match the query
+  // updateOne() : updates the first document that matches the query with new data
+  // updateMany() : updates all documents that match the query with new data
+  
+  // 3.) HTTP Status Codes:
+  // 200 OK : The request was successful, and the server returned the requested data.
+  // 201 Created : The request was successful, and a new resource was created.
+  // 400 Bad Request : The server could not understand the request due to invalid syntax or missing data.
+  // 404 Not Found : The requested resource could not be found on the server.
+  // 409 Conflict : The request could not be completed due to a conflict with the current state of the resource (e.g., duplicate entry).
+  // 500 Internal Server Error : The server encountered an unexpected condition that prevented it from fulfilling the request.
+  // 403 Forbidden : The client does not have access rights to the content.
 
+// Create a new user:
 export const createUser = async (req,res) =>{
     const {name, email} = req.body;
     try {
