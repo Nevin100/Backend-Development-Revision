@@ -16,24 +16,24 @@ export const registerUser = async (req,res) => {
             return res.status(500).json({message:"Password is required", error:true});
         }
         const genSalt = await bcrypt.genSalt(10);
-        const hashedPassword = await bcrypt.hash(genSalt,password);
+        const hashedPassword = await bcrypt.hash(password,genSalt);
 
         const NewUser = new User({
             userName,
             email,
             password:hashedPassword,
-            role: role || "user"
+            role: req.role || "user"
         });
 
         if (NewUser){
-            const token = generateToken(NewUser);
+            const token = generateToken(NewUser,res);
 
             await NewUser.save();
 
             return res.status(201).json({
                 message:"User registered Successfully",
-                // accessToken : token,
-                data: NewUser.select("-password"),
+                accessToken : token,
+                data: NewUser,
                 error: false,
             })
         }
@@ -64,12 +64,12 @@ export const loginUser = async (req,res) => {
             return res.status(400).json({message:"Invalid Credentials", error:true});
         }
 
-        const token = generateToken(existingUser);
+        const token = generateToken(existingUser,res);
 
         return res.status(200).json({
             message:"User logged in Successfully",
             accessToken : token,
-            data: existingUser.select("-password"),
+            data: existingUser,
             error: false,
         }); 
     } catch (error) {
