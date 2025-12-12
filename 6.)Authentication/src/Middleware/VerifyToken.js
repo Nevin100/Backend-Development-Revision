@@ -1,7 +1,7 @@
 import jwt from 'jsonwebtoken';
 import User from "../Models/Users.models.js";
 
-const verifyToken = async (req, res, next) => {
+const authMiddleware = async (req, res, next) => {
     const token = req.cookies.jwt;
     if(!token){
         return res.status(401).json({message: 'Access Denied. No token provided.', error:true});
@@ -24,3 +24,5 @@ const verifyToken = async (req, res, next) => {
         return res.status(400).json({message: 'Invalid token.', error:true});
     }
 }
+
+export default authMiddleware
