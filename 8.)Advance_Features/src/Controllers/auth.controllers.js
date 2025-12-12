@@ -38,7 +38,7 @@ export const registerUser = async (req,res) => {
             })
         }
     } catch (error) {
-        res.status(500).json({message:"Internal Server Issue", error:true})
+        res.status(500).json({message:"Internal Server Issue from register Controller", error:true})
         console.log(error);
     }
 }
@@ -73,7 +73,46 @@ export const loginUser = async (req,res) => {
             error: false,
         }); 
     } catch (error) {
-        res.status(500).json({message:"Internal Server Issue", error:true})
+        res.status(500).json({message:"Internal Server Issue from Login Controller", error:true})
+        console.log(error);
+    }
+}
+
+// Logout : 
+export const logoutUser = async (req,res) => {
+    try{
+        res.cookie("jwt","", {maxAge: 0});
+        res.status(200).json({message:"User Logged Out Successfully", error:false})
+    }catch(error){
+        req.status(500).json({message:"Internal Server Issue from Logout Controller", error:true});
+        console.log(error);
+    }
+}
+
+// Change Password : 
+export const ChangePassword = async (req,res) => {
+    const { newPassword } = req.body;
+    const userId = req.user._id;
+    try {
+        if(!newPassword){
+            return res.status(400).json({message:"Password is not provided", error:true});
+        }
+        if(!userId){
+            return res.status(400).json({message: "No UserID Retrieved!! Forbidden !", error:true});
+        }
+
+        const user = await User.findById(userId);
+        if(!user){
+            return res.status(400).json({message:"No such user exists", error:true});
+        }
+
+        const genSalt = await bcrypt.genSalt(10);
+        const hashPassword = await bcrypt.hash(newPassword, genSalt);
+        const newDetails = await User.updateOne({_id: userId},{password:hashPassword});
+
+        res.status(200).json({message:"The Password is updated successfully", error:false, data:user});
+    } catch (error) {
+        res.status(500).json({message:"Internal Server Issue from Change-Password Controller", error:true});
         console.log(error);
     }
 }
