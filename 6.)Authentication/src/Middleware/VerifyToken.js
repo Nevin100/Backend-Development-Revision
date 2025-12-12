@@ -1,6 +1,5 @@
 import jwt from 'jsonwebtoken';
 import User from "../Models/Users.models.js";
-import { useInsertionEffect } from 'react';
 
 const verifyToken = async (req, res, next) => {
     const token = req.cookies.jwt;
