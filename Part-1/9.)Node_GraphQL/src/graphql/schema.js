@@ -13,6 +13,8 @@ export const typeDefs = gql`
 }
    type Mutation {
     addProduct(title: String!, category: String!, price: Float!): Product!,
+    deleteProduct(id: ID!): Boolean!,
+    updateProduct(id: ID!, title: String, category: String, price: Float): Product!,
 }
 `;
 
