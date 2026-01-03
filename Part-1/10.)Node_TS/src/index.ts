@@ -22,7 +22,7 @@ interface Data {
 app.post("/data", (req : express.Request<{}, {}, Data, {}>, res : express.Response) => {
     try {
         const { name, age } = req.body;
-        console.log(name, age);
+        console.log(`The Name is ${name} whose age is ${age}`);
         res.status(200).send("Data received successfully");
     } catch (error : any) {
         console.log(error);
@@ -30,6 +30,18 @@ app.post("/data", (req : express.Request<{}, {}, Data, {}>, res : express.Respon
     }
 })
 
+// users based on ID : 
+app.get('/users/:id', (req : express.Request<{ id: string }, {}, {}, {}>, res : express.Response) => {
+    const userId = req.params.id;
+    try {
+        const user = { id: userId, name: "John Doe" };
+        res.status(200).json({message: "User found successfully", data: user});
+        
+    } catch (error : any) {
+        console.log(error);
+        res.status(500).send("Internal Server Error");
+    }
+});
 
 app.listen(port, () => {
     console.log(`Server is running at http://localhost:${port}`);
