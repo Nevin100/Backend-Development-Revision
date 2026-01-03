@@ -19,6 +19,7 @@ Mutation:{
         products.push(newProduct);
         return newProduct;
     },
+
     // Resolver to delete a product by ID
     deleteProduct: (_, { id }) => {
         const index = products.findIndex(product => product.id === id);
@@ -26,6 +27,7 @@ Mutation:{
         const deletedProduct = products.splice(index, 1)[0];
         return deletedProduct;
     },
+    
     // Resolver to update an existing product
     updateProduct: (_, { id, title, category, price }) => {
         const product = products.find(product => product.id === id);
