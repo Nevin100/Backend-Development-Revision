@@ -10,7 +10,11 @@ export const typeDefs = gql`
 }  type Query {
   products: [Product!]!,
   product(id: ID!): Product,
-}`;
+}
+   type Mutation {
+    addProduct(title: String!, category: String!, price: Float!): Product!,
+}
+`;
 
 // --- Points ---
 // 1.) Import gql from 'graphql-tag' to define the schema.

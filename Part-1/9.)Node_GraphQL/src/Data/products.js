@@ -10,7 +10,6 @@ const products = [
         title:"Product 2",
         category:"Category 2",
         price : 1090.95,
-
     },
     {
         id:"3",
