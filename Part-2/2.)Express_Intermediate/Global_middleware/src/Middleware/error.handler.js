@@ -28,4 +28,4 @@ const globalErrorHandler = (err, req, res, next) => {
     }
 }
 
-export default { APIError, asynchandler, globalErrorHandler };
+export { APIError, asynchandler, globalErrorHandler };

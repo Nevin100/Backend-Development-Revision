@@ -26,4 +26,4 @@ const addTimeStamp = (req,res,next) => {
     next();
 }
 
-export default { requestLogger, addTimeStamp };
+export { requestLogger, addTimeStamp };
