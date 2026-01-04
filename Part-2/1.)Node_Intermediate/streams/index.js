@@ -16,10 +16,11 @@ const zlib = require('zlib');
 // Example: Creating a Transform stream for encryption
 class EncryptStream extends Transform {
     constructor(key, vector){
-    super();
-    this.key = key;
-    this.vector = vector;
+    super(); // Call the parent class constructor
+    this.key = key; // Encryption key
+    this.vector = vector; // Initialization vector
     }
+
     // _transform method is called for each chunk of data
     _transform(chunk, encoding, callback){
         // Create a cipher using AES-256-CBC algorithm (AES encryption -> Advanced Encryption Standard)
@@ -30,12 +31,17 @@ class EncryptStream extends Transform {
         callback();
 }}
 
-const key = crypto.randomBytes(32); // Generate a random 256-bit key
-const vector = crypto.randomBytes(16); // Generate a random 128-bit initialization vector
+// Generate a random 256-bit key
+const key = crypto.randomBytes(32); 
+
+// Generate a random 128-bit initialization vector
+const vector = crypto.randomBytes(16);
 
 // Create instances of the streams
 const encryptStream = new EncryptStream(key, vector);
-const gzipStream = zlib.createGzip(); // Create a Gzip transform stream
+
+// Create a Gzip transform stream
+const gzipStream = zlib.createGzip();
 
 // Create a readable stream from an input file
 const readableStream = fs.createReadStream('input.txt');
