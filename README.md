@@ -39,6 +39,7 @@ Backend-Development-Revision/
 │
 └── Part-2_Intermediate_Advanced/
 ├── Node_Intermediate
+├── Express_Intermediate
 ├── Redis_Complete
 ```
 
